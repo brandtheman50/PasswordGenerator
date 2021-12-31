@@ -1,32 +1,19 @@
 import tkinter as tk
+import random as rand
+from tkinter.filedialog import askopenfilename, asksaveasfilename
+
 window = tk.Tk()
+window.title("Password Generator")
 
-# Code to add widgets will go here...
-greeting = tk.Label(
-    text="Password Generator",
-    fg="blue",      #Foreground - color of text
-    bg="#14C1D3",   #Background - color of background
-    width=50,       #Size measured in text units
-    height=5)      
+#Algorithm for complete random password
 
-hint1 = tk.Label(
-    text="Hint",
-)
+#Algorithm using hints for password
 
-entry = tk.Entry()
+#Algorithm saving password to file
 
-hintGet = entry.get()
+#Algorithm for deleting password from file
 
-
-greeting.pack()
-hint1.pack()
-entry.pack()
-
-
-
-
-
+#Widgets and layouts
 
 #Run window
 window.mainloop()
-window.destroy()
