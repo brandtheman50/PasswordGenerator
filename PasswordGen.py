@@ -4,11 +4,16 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 window = tk.Tk()
 window.title("Password Generator")
-password = ""
+
 lowercase = "abcdefghijklmnopqrstuvwxyz"
 uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 numbers = "0123456789"
 special_chars = "!@#$%^&*()_+-=,./?><"
+
+lowercase_length = 25
+uppercase_length = 25
+all_numbers = 9
+special_chars_num = len(special_chars) - 1
 
 #Window configuration
 window.rowconfigure(4, minsize=500, weight=1)
@@ -16,10 +21,30 @@ window.columnconfigure(3, minsize=600, weight=1)
 
 #Algorithm for complete random password
 def com_rand_password():
+    entry_password.delete(0, tk.END)
+    password = ""
     length = int(entry_length.get())
     for i in range(0,length):
-        print(i)
-    return
+        rand_type = rand.randint(1,4)
+        #Random lowercase letter
+        if rand_type == 1:
+            rand_char = rand.randint(0,25)
+            new_char = lowercase[rand_char]
+        #Random uppercase letter
+        elif rand_type == 2:
+            rand_char = rand.randint(0,25)
+            new_char = uppercase[rand_char]
+        #Random number
+        elif rand_type == 3:
+            rand_num = rand.randint(0,9)
+            new_char = numbers[rand_num]
+        #Random specail character
+        else:
+            rand_num = rand.randint(0, special_chars_num)
+            new_char = special_chars[rand_num]
+        password = password + new_char
+    entry_password.insert(0, password)
+
     
 #Algorithm using hints for password
 def hints_rand_password():
