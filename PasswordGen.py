@@ -20,7 +20,15 @@ window.rowconfigure(5, minsize=150, weight=1)
 window.columnconfigure(3, minsize=600, weight=1)
 
 #Need function to check user requirements for password (Uppercase, numbers, symbols)
+def validate_length():
+    if entry_length.get():
+        com_rand_password()
+    else:
+        return
 
+
+def validate_password():
+    return
 
 #Algorithm for complete random password
 def com_rand_password():
@@ -46,6 +54,7 @@ def com_rand_password():
             rand_num = rand.randint(0, special_chars_num)
             new_char = special_chars[rand_num]
         password = password + new_char
+    validate_password()
     entry_password.insert(0, password)
 
     
@@ -85,9 +94,13 @@ first_row_buttons.grid(row=0, column=0, sticky="ns")
 #Second Column Widgets
 
 #Requirements boxes
-check_uppercase = tk.Checkbutton(fr_checkboxes, text='Uppercase', onvalue=True, offvalue=False)
-check_number = tk.Checkbutton(fr_checkboxes, text="Number", onvalue=True, offvalue=False)
-check_symbol = tk.Checkbutton(fr_checkboxes, text="Symbol", onvalue=True, offvalue=False)
+checked_upper_box = tk.BooleanVar(value=False)
+checked_num_box = tk.BooleanVar(value=False)
+checked_symbol_box = tk.BooleanVar(value=False)
+
+check_uppercase = tk.Checkbutton(fr_checkboxes, text='Uppercase', variable = checked_upper_box, onvalue=True, offvalue=False)
+check_number = tk.Checkbutton(fr_checkboxes, text="Number", variable=checked_num_box, onvalue=True, offvalue=False)
+check_symbol = tk.Checkbutton(fr_checkboxes, text="Symbol", variable=checked_symbol_box, onvalue=True, offvalue=False)
 check_uppercase.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
 check_number.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 check_symbol.grid(row=2, column=0, padx=5, pady=5, sticky="ew")
@@ -96,7 +109,7 @@ fr_checkboxes.grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
 
 #Length
 lbl_length = tk.Label(fr_length, text="Length")
-entry_length = tk.Entry(fr_length)
+entry_length = tk.Entry(fr_length, width=5)
 lbl_length.grid(row=0, column=0, padx=5, sticky="ew", pady=3)
 entry_length.grid(row=1, column=0, padx=5, sticky="ew")
 
@@ -104,7 +117,7 @@ fr_length.grid(row=1, column=1, sticky="nsew")
 
 #Random Generate
 lbl_random = tk.Label(fr_random, text="Generate completely random password")
-btn_random_pass = tk.Button(fr_random, text="Generate", command=com_rand_password)
+btn_random_pass = tk.Button(fr_random, text="Generate", command=validate_length)
 lbl_random.grid(row=0, column=0, sticky="ew", padx=5, pady=1)
 btn_random_pass.grid(row=1, column=0, padx=5, pady=5)
 
