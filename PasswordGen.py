@@ -19,10 +19,12 @@ special_chars_num = len(special_chars) - 1
 window.rowconfigure(5, minsize=150, weight=1)
 window.columnconfigure(3, minsize=600, weight=1)
 
-#Need function to check user requirements for password (Uppercase, numbers, symbols)
+#Function to check if user input valid length
 def validate_length():
-    if entry_length.get():
-        com_rand_password()
+    if entry_length.get() and entry_length.get().isnumeric():
+        length = int(entry_length.get())
+        if (length > 7) and (length < 256):
+            com_rand_password()
     else:
         return
 
