@@ -91,7 +91,7 @@ def com_rand_password():
         elif rand_type == 3:
             rand_num = rand.randint(0,9)
             new_char = numbers[rand_num]
-        #Random specail character
+        #Random special character
         else:
             rand_num = rand.randint(0, special_chars_num)
             new_char = special_chars[rand_num]
@@ -110,7 +110,16 @@ def hints_rand_password():
 
 #Algorithm saving password to file
 def save_password():
-    return
+    if entry_password.get() and entry_site.get() and entry_username.get():
+        file = open("SavedPasswords.txt", "a")
+        get_password = "Password: " + entry_password.get() + "\n" 
+        get_site = "Website: " + entry_site.get() + "\n"
+        get_username = "Username: " + entry_username.get() + "\n"
+
+        L = [get_site, get_username, get_password]
+        file.writelines(L)
+        file.write("\n")
+        file.close()
 
 #Function for showing saved passwords
 def show_passwords():
@@ -131,6 +140,7 @@ fr_hint2 = tk.Frame(window)
 fr_hint3 = tk.Frame(window)
 fr_hints_btn = tk.Frame(window)
 fr_password = tk.Frame(window)
+fr_save_pass = tk.Frame(window)
 # endregion
 
 #First Column Widgets
@@ -214,5 +224,20 @@ entry_password = tk.Entry(fr_password)
 entry_password.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
 
 fr_password.grid(row=4, column=3, sticky="nsew")
+
+#Save Password Button Frame
+lbl_site = tk.Label(fr_save_pass, text="Site")
+lbl_username = tk.Label(fr_save_pass, text="Username")
+entry_site = tk.Entry(fr_save_pass)
+entry_username = tk.Entry(fr_save_pass)
+lbl_site.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
+entry_site.grid(row=1, column=0, padx=5, pady=5, sticky="ew")
+lbl_username.grid(row=2, column=0, padx=5, pady=5, sticky="ew")
+entry_username.grid(row=3, column=0, padx=5, pady=5, sticky="ew")
+
+btn_save_pass = tk.Button(fr_save_pass, text="Save Password", command=save_password)
+btn_save_pass.grid(row=4, column=0, padx=5, pady=5, sticky="ew")
+
+fr_save_pass.grid(row=5, column=3, sticky="nsew")
 #Run window
 window.mainloop()
