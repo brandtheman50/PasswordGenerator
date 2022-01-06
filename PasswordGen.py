@@ -1,9 +1,20 @@
 import tkinter as tk
 import random as rand
+from tkinter import ttk
+from tkinter.constants import COMMAND
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 window = tk.Tk()
 window.title("Password Generator")
+
+tab_parent = ttk.Notebook(window)
+
+tab1 = ttk.Frame(tab_parent)
+tab2 = ttk.Frame(tab_parent)
+
+tab_parent.add(tab1, text="Generate")
+tab_parent.add(tab2, text="Show Passwords")
+
 
 lowercase = "abcdefghijklmnopqrstuvwxyz"
 uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -123,7 +134,13 @@ def save_password():
 
 #Function for showing saved passwords
 def show_passwords():
-    return
+    password_file = open("SavedPasswords.txt", "r")
+    if not password_file:
+        return
+    text_all_passwords.delete("1.0", tk.END)
+    text = password_file.read()
+    text_all_passwords.insert(tk.END, text)
+    password_file.close()
 
 #Algorithm for deleting password from file
 def delete_passwords():
@@ -131,25 +148,25 @@ def delete_passwords():
 
 #Frames
 # region 
-first_row_buttons = tk.Frame(window)
-fr_checkboxes = tk.Frame(window)
-fr_length = tk.Frame(window)
-fr_random = tk.Frame(window)
-fr_hint1 = tk.Frame(window)
-fr_hint2 = tk.Frame(window)
-fr_hint3 = tk.Frame(window)
-fr_hints_btn = tk.Frame(window)
-fr_password = tk.Frame(window)
-fr_save_pass = tk.Frame(window)
+first_row_buttons = tk.Frame(tab1)
+fr_checkboxes = tk.Frame(tab1)
+fr_length = tk.Frame(tab1)
+fr_random = tk.Frame(tab1)
+fr_hint1 = tk.Frame(tab1)
+fr_hint2 = tk.Frame(tab1)
+fr_hint3 = tk.Frame(tab1)
+fr_hints_btn = tk.Frame(tab1)
+fr_password = tk.Frame(tab1)
+fr_save_pass = tk.Frame(tab1)
 # endregion
 
 #First Column Widgets
 # region 
-btn_show_pass = tk.Button(first_row_buttons, text="Show Passwords")
-btn_new_pass = tk.Button(first_row_buttons, text="New Password")
-btn_show_pass.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-btn_new_pass.grid(row=1, column=0, sticky="ew", padx=5)
-first_row_buttons.grid(row=0, column=0, sticky="ns")
+#btn_show_pass = tk.Button(first_row_buttons, text="Show Passwords")
+#btn_new_pass = tk.Button(first_row_buttons, text="New Password")
+#btn_show_pass.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+#btn_new_pass.grid(row=1, column=0, sticky="ew", padx=5)
+#first_row_buttons.grid(row=0, column=0, sticky="ns")
 # endregion
 #Second Column Widgets
 
@@ -239,5 +256,22 @@ btn_save_pass = tk.Button(fr_save_pass, text="Save Password", command=save_passw
 btn_save_pass.grid(row=4, column=0, padx=5, pady=5, sticky="ew")
 
 fr_save_pass.grid(row=5, column=3, sticky="nsew")
+
+### SHOW PASSWORDS SECTION
+
+#Frames
+fr_passwords_text = tk.Frame(tab2)
+fr_tab2_btn = tk.Frame(tab2)
+#Widgets
+btn_show_passwords = tk.Button(tab2, text="Show Passwords", command=show_passwords)
+btn_show_passwords.grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
+
+text_all_passwords = tk.Text(fr_passwords_text)
+text_all_passwords.grid(row=0, column=0, sticky="nsew")
+
+fr_passwords_text.grid(row=0, column=1, sticky="nsew")
+
+
 #Run window
+tab_parent.pack(expand=1, fill='both')
 window.mainloop()
