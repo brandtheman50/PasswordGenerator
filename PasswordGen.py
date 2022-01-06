@@ -51,6 +51,7 @@ def validate_length_hints():
     else:
         return
 
+# region 
 def validate_password(password):
     valid_upper = False
     valid_num = False
@@ -80,6 +81,7 @@ def validate_password(password):
         return True
     else:
         return False
+# endregion
     
     
 #Algorithm for complete random password
@@ -120,6 +122,7 @@ def hints_rand_password():
     return
 
 #Algorithm saving password to file
+# region 
 def save_password():
     if entry_password.get() and entry_site.get() and entry_username.get():
         file = open("SavedPasswords.txt", "a")
@@ -131,8 +134,10 @@ def save_password():
         file.writelines(L)
         file.write("\n")
         file.close()
+# endregion
 
 #Function for showing saved passwords
+# region 
 def show_passwords():
     password_file = open("SavedPasswords.txt", "r")
     if not password_file:
@@ -141,6 +146,7 @@ def show_passwords():
     text = password_file.read()
     text_all_passwords.insert(tk.END, text)
     password_file.close()
+# endregion
 
 #Algorithm for deleting password from file
 def delete_passwords():
@@ -148,7 +154,6 @@ def delete_passwords():
 
 #Frames
 # region 
-first_row_buttons = tk.Frame(tab1)
 fr_checkboxes = tk.Frame(tab1)
 fr_length = tk.Frame(tab1)
 fr_random = tk.Frame(tab1)
@@ -159,16 +164,6 @@ fr_hints_btn = tk.Frame(tab1)
 fr_password = tk.Frame(tab1)
 fr_save_pass = tk.Frame(tab1)
 # endregion
-
-#First Column Widgets
-# region 
-#btn_show_pass = tk.Button(first_row_buttons, text="Show Passwords")
-#btn_new_pass = tk.Button(first_row_buttons, text="New Password")
-#btn_show_pass.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-#btn_new_pass.grid(row=1, column=0, sticky="ew", padx=5)
-#first_row_buttons.grid(row=0, column=0, sticky="ns")
-# endregion
-#Second Column Widgets
 
 #Requirements boxes
 # region 
